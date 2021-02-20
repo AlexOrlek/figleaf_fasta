@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/339718171.svg)](https://zenodo.org/badge/latestdoi/339718171)
+![DOI](https://zenodo.org/badge/339805615.svg)](https://zenodo.org/badge/latestdoi/339805615)
 
 figleaf-fasta applies hard/soft masking to a FASTA file or excludes/extracts sub-sequences from a FASTA file.<br>
 * hard_mask: replace sequence with Ns or Xs
