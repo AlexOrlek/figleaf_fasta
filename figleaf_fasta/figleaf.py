@@ -1,8 +1,5 @@
 #! /usr/bin/env python3
 """Main module"""
-# Usage:
-# import module in python script... from figleaf-fasta import figleaf
-# run script from the command line... run figleaf.py -h to see help on command-line options
 
 
 def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_mask_letter='N', ranges_path=None, inverse_mask=False):
@@ -121,7 +118,7 @@ def main():
     """Run this function if script is called from the command-line"""
     import argparse
     import os
-    parser = argparse.ArgumentParser(description="figleaf-fasta: apply hard/soft mask to FASTA file or exclude/extract sub-sequences")
+    parser = argparse.ArgumentParser(description="figleaf_fasta: apply hard/soft mask to FASTA file or exclude/extract sub-sequences")
     # Input options
     input_group = parser.add_argument_group('Input')
     input_group.add_argument('-fi', '--fasta_input', help='Filepath to input fasta file to be masked (required)', required=True)
