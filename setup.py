@@ -10,7 +10,7 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = ['biopython>=1.61']
 
 setup_requirements = ['pytest-runner', ]
 
@@ -32,14 +32,17 @@ setup(
         'Programming Language :: Python :: 3.9',
     ],
     description="figleaf_fasta applies hard/soft masking to a FASTA file or excludes/extracts sub-sequences from a FASTA file.",
-    install_requires=['biopython>=1.61'],
+    install_requires=requirements,
     license="MIT license",
     long_description_content_type='text/markdown',
+    long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='figleaf_fasta',
     name='figleaf_fasta',
     packages=find_packages(include=['figleaf_fasta', 'figleaf_fasta.*']),
+    setup_requires=setup_requirements,
     test_suite='tests',
+    tests_require=test_requirements,
     url='https://github.com/AlexOrlek/figleaf_fasta',
     version='1.1.0',
     zip_safe=False,

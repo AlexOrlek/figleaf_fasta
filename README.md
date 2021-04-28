@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/339805615.svg)](https://zenodo.org/badge/latestdoi/339805615)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4680617.svg)](https://doi.org/10.5281/zenodo.4680617)
 
 figleaf_fasta applies hard/soft masking to a FASTA file or excludes/extracts sub-sequences from a FASTA file.<br>
 * hard_mask: replace sequence with Ns or Xs
@@ -7,9 +7,9 @@ figleaf_fasta applies hard/soft masking to a FASTA file or excludes/extracts sub
 * extract: extract and concatenate sub-sequences
 <br>
 
-Other tools for handling FASTA files (e.g. `bedtools maskfasta`) often require a sequence name to be specified (in addition to range information), and the sequence name must match headers in the FASTA file.<br>
+Other tools for handling FASTA files (e.g. `bedtools maskfasta`, `bedtools getfasta`, `pybedtools`) require sequence name(s), corresponding to FASTA header names, to be specified (in addition to range information); sequence name specification allows different masking operations to be applied to different records in a multi-FASTA file.<br>
 
-figleaf_fasta is a simple lightweight tool that takes as input a (multi-)FASTA and range start, end positions; masking/exclusion/extraction will be applied to sequence(s) within the (multi-)FASTA, regardless of FASTA header names.<br>
+figleaf_fasta is a simple lightweight tool that takes as input a (multi-)FASTA and range start, end positions; masking/exclusion/extraction will be applied to sequence(s) within the (multi-)FASTA, regardless of FASTA header names. This is useful if a user wants to apply the same masking to all FASTA files or all records of a multi-FASTA. A common use case is when handling reference-aligned (same-length) consensus FASTAs.<br>
 
 # Installation
 
