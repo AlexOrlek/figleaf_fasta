@@ -132,3 +132,4 @@ dmypy.json
 OLD/
 README
 TESTING/
+.DS_Store

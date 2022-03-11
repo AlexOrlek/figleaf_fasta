@@ -29,13 +29,13 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
 
     # check masking arguments (task and hard_mask_letter)
     assert task in ['hard_mask', 'soft_mask', 'exclude', 'extract'], 'Error: task must be either "hard_mask", "soft_mask", "exclude", or "extract"'
-    assert hard_mask_letter in ['N', 'X'], 'Error: hard_mask_letter must be either "N" or "X"'
+    assert hard_mask_letter in ['?', 'N', 'X'], 'Error: hard_mask_letter must be either "?", "N" or "X"'
     # check fasta_input
     assert os.path.isfile(fasta_input), 'Error: fasta_input must be a valid fasta file filepath'
     assert fastapathregex.match(fasta_input), 'Error: fasta_input must be a filepath to input fasta file, ending with .fasta/.fa/.fna(.gz)'
     # check fasta_output and make output directory
     output_path = os.path.dirname(fasta_output)
-    assert fastapathregex.match(fasta_input), 'Error: fasta_output must be a filepath to output fasta file, ending with .fasta/.fa/.fna(.gz)'
+    assert fastapathregex.match(fasta_output), 'Error: fasta_output must be a filepath to output fasta file, ending with .fasta/.fa/.fna(.gz)'
     try:
         os.makedirs(output_path, exist_ok=True)
     except:
@@ -74,6 +74,8 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
         output_handle = gzip.open(fasta_output, 'wt')
     else:
         output_handle = open(fasta_output, 'w')
+
+    
     for recordid, recordseq in SeqIO.FastaIO.SimpleFastaParser(input_handle):
         recordseqlen = len(recordseq)
         assert recordseqlen >= mask_max, 'Error: mask range positions must not exceed the length of the fasta sequence; \
@@ -86,9 +88,11 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
             # inverse mask
             if inverse_mask is True:
                 complement_indices = mask_to_complement_indices(mask, recordseqlen)
-                mask = indices_to_slices(complement_indices)
+                mask_new = indices_to_slices(complement_indices)
+            else:
+                mask_new = mask
             # apply hard/soft mask
-            for mask_range in mask:
+            for mask_range in mask_new:
                 start, end = mask_range
                 if task == 'hard_mask':
                     Mutable_seq[start:end] = hard_mask_letter * (end - start)
@@ -100,9 +104,11 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
             if task == 'exclude':
                 # exclude mask ranges (select complement of mask ranges)
                 complement_indices = mask_to_complement_indices(mask, recordseqlen)
-                mask = indices_to_slices(complement_indices)
+                mask_new = indices_to_slices(complement_indices)
+            else:
+                mask_new = mask
             extracted_seq = []
-            for mask_range in mask:
+            for mask_range in mask_new:
                 start, end = mask_range
                 extracted_seq.append(str(Mutable_seq[start:end]))
             masked_seq = ''.join(extracted_seq)
@@ -131,7 +137,7 @@ def main():
     task_group.add_argument('--task', help='"hard_mask","soft_mask","exclude","extract" (default: hard_mask)', default='hard_mask')
     # Mask options
     mask_group = parser.add_argument_group('Mask')
-    mask_group.add_argument('--hard_mask_letter', help='Letter to represent hard_mask regions (N or X) (default: N)', default='N')
+    mask_group.add_argument('--hard_mask_letter', help='Letter to represent hard_mask regions (?, N or X) (default: N)', default='N')
     mask_group.add_argument('--inverse_mask', action='store_true', help='If flag is provided, all except mask ranges will be masked')
 
     args = parser.parse_args()

@@ -1,3 +1,9 @@
+### Modified from https://github.com/AlexOrlek/figleaf_fasta
+Modifications:
+- change constraints on hardmask letters, we can use "?" now. 
+- fixed bugs when using fasta file with more than one sequence, with --task='exclude' or with --inverse_mask=False  
+
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4680617.svg)](https://doi.org/10.5281/zenodo.4680617)
 
 figleaf_fasta applies hard/soft masking to a FASTA file or excludes/extracts sub-sequences from a FASTA file.<br>
