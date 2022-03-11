@@ -8,4 +8,4 @@ title: Credits
 
 # Contributors
 
-None yet. Why not be the first?
+-   Haogao Gu \<<koohoko@gmail.com>\>
