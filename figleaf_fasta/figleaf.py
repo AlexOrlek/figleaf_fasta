@@ -10,7 +10,7 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
       fasta_output (str): Output FASTA filepath
       ranges_list (list, None): List with nested lists or tuples containing start, end positions (Default value = None)
       task (str): Task performed. Must be hard_mask/soft_mask/exclude/extract (Default value = 'hard_mask')
-      hard_mask_letter (str): Must be N/X (Default value = 'N')
+      hard_mask_letter (str): Must be N/X/? (Default value = 'N')
       ranges_path (str, None): Filepath to two-column tab-separated file with start, end positions (Default value = None)
       inverse_mask (bool): Specifies whether to inverse ranges for hard/soft masking (Default value = False)
 
@@ -29,7 +29,7 @@ def figleaf(fasta_input, fasta_output, ranges_list=None, task='hard_mask', hard_
 
     # check masking arguments (task and hard_mask_letter)
     assert task in ['hard_mask', 'soft_mask', 'exclude', 'extract'], 'Error: task must be either "hard_mask", "soft_mask", "exclude", or "extract"'
-    assert hard_mask_letter in ['?', 'N', 'X'], 'Error: hard_mask_letter must be either "?", "N" or "X"'
+    assert hard_mask_letter in ['N', 'X', '?'], 'Error: hard_mask_letter must be either "N", "X", or "?"'
     # check fasta_input
     assert os.path.isfile(fasta_input), 'Error: fasta_input must be a valid fasta file filepath'
     assert fastapathregex.match(fasta_input), 'Error: fasta_input must be a filepath to input fasta file, ending with .fasta/.fa/.fna(.gz)'
@@ -137,7 +137,7 @@ def main():
     task_group.add_argument('--task', help='"hard_mask","soft_mask","exclude","extract" (default: hard_mask)', default='hard_mask')
     # Mask options
     mask_group = parser.add_argument_group('Mask')
-    mask_group.add_argument('--hard_mask_letter', help='Letter to represent hard_mask regions (?, N or X) (default: N)', default='N')
+    mask_group.add_argument('--hard_mask_letter', help='Letter to represent hard_mask regions (N, X, or ?) (default: N)', default='N')
     mask_group.add_argument('--inverse_mask', action='store_true', help='If flag is provided, all except mask ranges will be masked')
 
     args = parser.parse_args()
